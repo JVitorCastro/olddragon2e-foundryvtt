@@ -21,6 +21,23 @@
             <label><strong>{{localize "olddragon2e.class_ability.race_restrictions"}}</strong> (Exemplo: Anão, Elfo, Halfling)</label>
             <input name="system.restrictions.races" type="text" value="{{system.restrictions.races}}" data-dtype="Array">
         </div>
+        {{!-- Talentos de Ladrão --}}
+        <div class="rogue-talents">
+            <label><strong>{{localize "olddragon2e.rogue_talents"}}</strong></label>
+            <ol class="rogue-talents-list">
+                {{#each system.rogue_talents as |talent|}}
+                <li class="rogue-talent-entry">
+                    <div class="rogue-talent-fields">
+                        <input name="system.rogue_talents.{{@index}}.key" type="text" value="{{talent.key}}" placeholder="Chave" class="rogue-talent-key">
+                        <input name="system.rogue_talents.{{@index}}.name" type="text" value="{{talent.name}}" placeholder="Nome">
+                        <a class="rogue-talent-delete" data-index="{{@index}}" title="{{localize 'olddragon2e.delete'}}"><i class="fa-solid fa-trash"></i></a>
+                    </div>
+                    <textarea name="system.rogue_talents.{{@index}}.description" placeholder="Descrição">{{talent.description}}</textarea>
+                </li>
+                {{/each}}
+            </ol>
+            <a class="rogue-talent-add"><i class="fa-solid fa-plus"></i> {{localize "olddragon2e.create"}}</a>
+        </div>
         {{!-- Níveis --}}
         <div class="levels">
             {{#each system.levels as |level key|}}

@@ -270,6 +270,14 @@ export class OD2ClassDataModel extends foundry.abstract.TypeDataModel {
       class_abilities: new fields.ArrayField(new fields.StringField(), {
         default: [],
       }),
+      rogue_talents: new fields.ArrayField(
+        new fields.SchemaField({
+          key: new fields.StringField({ required: true }),
+          name: new fields.StringField({ required: true }),
+          description: new fields.StringField({ default: '' }),
+        }),
+        { default: [] },
+      ),
     };
   }
 }

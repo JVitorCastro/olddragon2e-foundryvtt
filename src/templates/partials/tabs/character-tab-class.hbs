@@ -47,6 +47,34 @@
         {{/if}}
     </div>
 
+    {{!-- Talentos de Ladrão --}}
+    {{#if actor.system.has_rogue_talents}}
+    <div class="rogue-talents">
+        <label class="tab-title">{{localize "olddragon2e.rogue_talents"}}</label>
+        <div class="talent-points-summary">
+            {{localize "olddragon2e.rogue_talent_points"}}: {{actor.system.rogue_talent_points_spent}} / {{actor.system.rogue_talent_total_points_available}}
+            ({{localize "olddragon2e.rogue_talent_remaining"}}: {{actor.system.rogue_talent_points_remaining}})
+        </div>
+        <ol class="talent-list">
+            {{#each rogue_talents as |talent|}}
+            <li class="talent-item">
+                <a class="talent-roll" data-talent-label="{{talent.label}}" data-talent-score="{{talent.score}}" title="{{localize 'olddragon2e.rogue_talent_test'}}">
+                    <i class="fa-solid fa-dice-d6"></i>
+                </a>
+                <span class="talent-name" {{#if talent.description}}title="{{talent.description}}"{{/if}}><strong>{{talent.label}}</strong></span>
+                <span class="talent-score">{{talent.score}}</span>
+                <input class="talent-points-input" name="system.rogue_talent_points.{{talent.key}}"
+                       type="number" value="{{talent.points}}" min="0"
+                       data-dtype="Number">
+                {{#if talent.race_bonus}}
+                <span class="talent-race-bonus">(+{{talent.race_bonus}} {{localize "olddragon2e.race"}})</span>
+                {{/if}}
+            </li>
+            {{/each}}
+        </ol>
+    </div>
+    {{/if}}
+
     {{!-- Restrição de Equipamentos --}}
     {{#if actor.system.class}}
         <div class="equipment-restrictions">
