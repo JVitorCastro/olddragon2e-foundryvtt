@@ -35,6 +35,40 @@
                     <span class="ability-on-level">{{localize "olddragon2e.class_ability.on_level.10"}}</span>
                     {{{ability.system.level10}}}
                     {{/ifCondAndEqual}}
+                    {{#if ability.system.rogue_talents.length}}
+                    <div class="rogue-talent-points">
+                        <div class="rogue-talent-points-summary">
+                            <div><strong>{{localize "olddragon2e.rogue_talent_points"}}</strong>: {{../actor.system.rogue_talent_points_spent}} / {{../actor.system.rogue_talent_total_points_available}}</div>
+                            <div>({{localize "olddragon2e.rogue_talent_remaining"}}: {{../actor.system.rogue_talent_points_remaining}})</div>
+                        </div>
+                        <ol>
+                            {{#each ../rogue_talents as |talent|}}
+                            <li>
+                                <div class="rogue-talent-item-points">
+                                    <div>
+                                        <span class="font-bold">{{talent.label}}</span>
+                                        <a class="talent-roll" data-talent-label="{{talent.label}}" data-talent-score="{{talent.score}}" title="{{localize 'olddragon2e.rogue_talent_test'}} {{talent.label}}">
+                                            <i class="fa-solid fa-dice-d6"></i> 1-{{talent.score}} em 1d6
+                                        </a>
+                                        {{#if talent.race_bonus}}
+                                        <span class="talent-race-bonus">(+{{talent.race_bonus}} {{localize "olddragon2e.race"}})</span>
+                                        {{/if}}
+                                    </div>
+                                    <select class="talent-points-select" name="system.rogue_talent_points.{{talent.key}}" data-dtype="Number">
+                                        <option value="0" {{#ifCond talent.points '===' 0}}selected{{/ifCond}}>0</option>
+                                        <option value="1" {{#ifCond talent.points '===' 1}}selected{{/ifCond}}>1</option>
+                                        <option value="2" {{#ifCond talent.points '===' 2}}selected{{/ifCond}}>2</option>
+                                        <option value="3" {{#ifCond talent.points '===' 3}}selected{{/ifCond}}>3</option>
+                                    </select>
+                                </div>
+                                {{#if talent.description}}
+                                <div class="talent-description">{{talent.description}}</div>
+                                {{/if}}
+                            </li>
+                            {{/each}}
+                        </ol>
+                    </div>
+                    {{/if}}
                 </li>
                 {{/ifCond}}
                 {{/each}}
@@ -46,38 +80,6 @@
         <p class="text-center">Adicione uma classe, para visualizar as habilidades listadas aqui.</p>
         {{/if}}
     </div>
-
-    {{!-- Talentos de Ladrão --}}
-    {{#if actor.system.has_rogue_talents}}
-    <div class="rogue-talents">
-        <label class="tab-title">{{localize "olddragon2e.rogue_talents"}}</label>
-        <div class="talent-points-summary">
-            {{localize "olddragon2e.rogue_talent_points"}}: {{actor.system.rogue_talent_points_spent}} / {{actor.system.rogue_talent_total_points_available}}
-            ({{localize "olddragon2e.rogue_talent_remaining"}}: {{actor.system.rogue_talent_points_remaining}})
-        </div>
-        <ol class="talent-list">
-            {{#each rogue_talents as |talent|}}
-            <li class="talent-item">
-                <a class="talent-roll" data-talent-label="{{talent.label}}" data-talent-score="{{talent.score}}" title="{{localize 'olddragon2e.rogue_talent_test'}}">
-                    <i class="fa-solid fa-dice-d6"></i>
-                </a>
-                <span class="talent-name" {{#if talent.description}}title="{{talent.description}}"{{/if}}><strong>{{talent.label}}</strong></span>
-                <span class="talent-score">{{talent.score}}</span>
-                <label class="talent-points-label">{{localize "olddragon2e.rogue_talent_points"}}:</label>
-                <select class="talent-points-select" name="system.rogue_talent_points.{{talent.key}}" data-dtype="Number">
-                    <option value="0" {{#ifCond talent.points '===' 0}}selected{{/ifCond}}>0</option>
-                    <option value="1" {{#ifCond talent.points '===' 1}}selected{{/ifCond}}>1</option>
-                    <option value="2" {{#ifCond talent.points '===' 2}}selected{{/ifCond}}>2</option>
-                    <option value="3" {{#ifCond talent.points '===' 3}}selected{{/ifCond}}>3</option>
-                </select>
-                {{#if talent.race_bonus}}
-                <span class="talent-race-bonus">(+{{talent.race_bonus}} {{localize "olddragon2e.race"}})</span>
-                {{/if}}
-            </li>
-            {{/each}}
-        </ol>
-    </div>
-    {{/if}}
 
     {{!-- Restrição de Equipamentos --}}
     {{#if actor.system.class}}
