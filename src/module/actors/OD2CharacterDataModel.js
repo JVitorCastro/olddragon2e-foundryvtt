@@ -544,15 +544,12 @@ export class OD2CharacterDataModel extends foundry.abstract.TypeDataModel {
 
   // Talentos de Ladrão
   get has_rogue_talents() {
-    const characterClass = this.class;
-    if (!characterClass) return false;
-    return (characterClass.system.rogue_talents || []).length > 0;
+    return this.class_abilities.some((ability) => (ability.system.rogue_talents || []).length > 0);
   }
 
   get available_rogue_talents() {
-    const characterClass = this.class;
-    if (!characterClass) return [];
-    return characterClass.system.rogue_talents || [];
+    const ability = this.class_abilities.find((a) => (a.system.rogue_talents || []).length > 0);
+    return ability?.system.rogue_talents ?? [];
   }
 
   get rogue_talent_race_bonus() {
