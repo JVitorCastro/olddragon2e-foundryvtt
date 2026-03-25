@@ -48,10 +48,10 @@
                                     <div>
                                         <span class="font-bold">{{talent.label}}</span>
                                         <a class="talent-roll" data-talent-label="{{talent.label}}" data-talent-score="{{talent.score}}" title="{{localize 'olddragon2e.rogue_talent_test'}} {{talent.label}}">
-                                            <i class="fa-solid fa-dice-d6"></i> 1-{{talent.score}} em 1d6
+                                            <i class="fa-light fa-dice-d6 fa-sm"></i>&nbsp;1-{{talent.score}} em 1d6
                                         </a>
                                         {{#if talent.race_bonus}}
-                                        <span class="talent-race-bonus">(+{{talent.race_bonus}} {{localize "olddragon2e.race"}})</span>
+                                        <span class="talent-race-bonus">&nbsp;(+{{talent.race_bonus}} {{localize "olddragon2e.race"}})</span>
                                         {{/if}}
                                     </div>
                                     <select class="talent-points-select" name="system.rogue_talent_points.{{talent.key}}" data-dtype="Number">
